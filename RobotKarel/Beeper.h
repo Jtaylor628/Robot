@@ -11,7 +11,7 @@ public:
 	Beeper();
 	int get_x();
 	int get_y();
-	void set_x(int x);
+public: void set_x(int x);
 	void set_y(int y);
 };
 

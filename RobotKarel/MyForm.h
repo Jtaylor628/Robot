@@ -1,5 +1,6 @@
 #pragma once
 #include "Item.h";
+#include "Beeper.h";
 namespace RobotKarel {
 
 	using namespace System;
@@ -51,6 +52,10 @@ namespace RobotKarel {
 		static const int NUMROWS = 16;
 		static const int NUMCOLS = 20;
 		static const int CELLSIZE = 25;
+
+		Beeper^ beeper1 = gcnew Beeper;
+
+
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Button^  button1;
 			 array <Item^, 2>^ maze;
@@ -99,7 +104,7 @@ namespace RobotKarel {
 #pragma endregion
 
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-		int row, col;
+		
 		g = panel1->CreateGraphics();
 		grayBrush = gcnew System::Drawing::SolidBrush(Color::Gray);
 		BlueBrush = gcnew System::Drawing::SolidBrush(Color::Blue);
@@ -116,8 +121,21 @@ namespace RobotKarel {
 			//outside form
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		drawMaze();
+
+		//draw buttons
+		beeper1->set_x(5);
+		beeper1->set_y(5);
+
+		Rectangle beeperRect = Rectangle(beeper1->get_x() * CELLSIZE, beeper1->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+		g->FillRectangle(grayBrush, beeperRect);
+		g->DrawRectangle(blackPen, beeperRect);
 		
 	}
+
+
+
+
+
 			 private: void drawMaze()
 			 {
 				 //Declare local variables;
