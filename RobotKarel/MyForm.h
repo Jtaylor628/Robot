@@ -52,13 +52,14 @@ namespace RobotKarel {
 		static const int NUMROWS = 16;
 		static const int NUMCOLS = 20;
 		static const int CELLSIZE = 25;
-
+		static const int ARRAY_SIZE = 3;
+		array <Beeper^>^ beeper_array;
 		Beeper^ beeper1 = gcnew Beeper;
 
 
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Button^  button1;
-			 array <Item^, 2>^ maze;
+			 
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -102,7 +103,7 @@ namespace RobotKarel {
 
 		}
 #pragma endregion
-
+		
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 		
 		g = panel1->CreateGraphics();
@@ -111,8 +112,12 @@ namespace RobotKarel {
 		burlyBrush = gcnew System::Drawing::SolidBrush(Color::BurlyWood);
 		blackPen = gcnew System::Drawing::Pen(Color::Black);
 
+		
 		//maze = gcnew array<Item^, 2>(NUMROWS, NUMCOLS);
-
+		beeper_array = gcnew array<Beeper^>(ARRAY_SIZE);
+		for (int i = 0; i < ARRAY_SIZE; i++) {
+			beeper_array[i] = gcnew Beeper();
+		}
 	}
 
 	
@@ -122,11 +127,16 @@ namespace RobotKarel {
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		drawMaze();
 
-		//draw buttons
-		beeper1->set_x(5);
-		beeper1->set_y(5);
+		//Draw buttons
+		beeper_array[0]->set_x(6);
+		beeper_array[0]->set_y(8);
+		
+		//beeper1->set_x(5);
+		//beeper1->set_y(5);
 
-		Rectangle beeperRect = Rectangle(beeper1->get_x() * CELLSIZE, beeper1->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+		//MessageBox::Show(beeper_array[0]->get_x);
+		Rectangle beeperRect = Rectangle(beeper_array[0]->get_x() * CELLSIZE, beeper_array[0]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+		//using brush for now until we use icon.
 		g->FillRectangle(grayBrush, beeperRect);
 		g->DrawRectangle(blackPen, beeperRect);
 		
