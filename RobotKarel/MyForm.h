@@ -1,7 +1,9 @@
 #pragma once
 #include "Item.h";
 #include "Beeper.h";
-#include <fstream>;
+#include "robot.h";
+
+#include "Cell.h";
 namespace RobotKarel {
 
 	using namespace System;
@@ -54,9 +56,10 @@ namespace RobotKarel {
 		static const int NUMCOLS = 20;
 		static const int CELLSIZE = 25;
 		static const int ARRAY_SIZE = 3;
+		int number_of_beepers = 0;
 		array <Beeper^>^ beeper_array;
-	
-
+		array <Cell^,2>^ cell_array;
+		robot^ myRobot;
 
 	private: System::Windows::Forms::Panel^  panel1;
 
@@ -108,12 +111,13 @@ namespace RobotKarel {
 		
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 		
+		
 		g = panel1->CreateGraphics();
 		grayBrush = gcnew System::Drawing::SolidBrush(Color::Gray);
 		BlueBrush = gcnew System::Drawing::SolidBrush(Color::Blue);
 		burlyBrush = gcnew System::Drawing::SolidBrush(Color::BurlyWood);
 		blackPen = gcnew System::Drawing::Pen(Color::Black);
-
+		
 		
 		//maze = gcnew array<Item^, 2>(NUMROWS, NUMCOLS);
 
@@ -122,6 +126,16 @@ namespace RobotKarel {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			beeper_array[i] = gcnew Beeper();
 		}
+
+		cell_array = gcnew array<Cell^, 2>(NUMROWS, NUMCOLS);
+		for (int row = 0; row < NUMROWS; row++) {
+			for (int col = 0; col < NUMCOLS; col++) {
+				cell_array[row,col] = gcnew Cell;
+			}
+		}
+
+
+
 	}
 
 	
@@ -129,19 +143,28 @@ namespace RobotKarel {
 
 		
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		//get_data(beeper_array);
+		
+		//myRobot = gcnew robot(2,1);
+
+		beeper_array[0]->get_data(beeper_array, cell_array);
+
+		//draws  empty map
 		drawMap();
 
 		//Draw beepers
-		beeper_array[0]->set_x(6);
+		//beeper_array[0]->set_x(6);
 		//beeper_array[0]->set_y(8);
 		
 		
+		for (int i = 0; i < 3; i++) {
+			Rectangle beeperRect = Rectangle(beeper_array[i]->get_x() * CELLSIZE, beeper_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+			//using brush for now until we use icon.
+			g->FillRectangle(burlyBrush, beeperRect);
+			g->DrawRectangle(blackPen, beeperRect);
 
-				Rectangle beeperRect = Rectangle(beeper_array[0]->get_x() * CELLSIZE, beeper_array[0]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
-		//using brush for now until we use icon.
-		g->FillRectangle(grayBrush, beeperRect);
-		g->DrawRectangle(blackPen, beeperRect);
-		
+			//g->DrawIcon(MyRobot->getIcon(), beeperRect);
+		}
 	}
 
 
@@ -174,20 +197,7 @@ namespace RobotKarel {
 
 
 
-					/*  void get_data(int piclocation[][2]) {
-
-						  std::ifstream in_stream;
-						  in_stream.open("picloc.txt");
-						  int count = 0;
-						  while (!in_stream.eof()) {					//stream coordinates from file into array
-							  in_stream >> piclocation[count][0];
-							  in_stream >> piclocation[count][1];
-							  count++;
-						  }
-					  }*/
-
-
-
+					
 
 
 

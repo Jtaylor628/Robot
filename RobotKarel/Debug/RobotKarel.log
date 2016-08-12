@@ -2,5 +2,6 @@
 c:\users\dell\source\repos\robot\robotkarel\MyForm.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\source\repos\robot\robotkarel\MyForm.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\source\repos\robot\robotkarel\MyForm.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\source\repos\robot\robotkarel\MyForm.h(6): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   RobotKarel.vcxproj -> C:\Users\Dell\Source\Repos\Robot\Debug\RobotKarel.exe
   RobotKarel.vcxproj -> C:\Users\Dell\Source\Repos\Robot\Debug\RobotKarel.pdb (Full PDB)
