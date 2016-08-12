@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.h";
 #include "Beeper.h";
+#include <fstream>;
 namespace RobotKarel {
 
 	using namespace System;
@@ -54,10 +55,11 @@ namespace RobotKarel {
 		static const int CELLSIZE = 25;
 		static const int ARRAY_SIZE = 3;
 		array <Beeper^>^ beeper_array;
-		Beeper^ beeper1 = gcnew Beeper;
+	
 
 
 	private: System::Windows::Forms::Panel^  panel1;
+
 	private: System::Windows::Forms::Button^  button1;
 			 
 
@@ -114,6 +116,8 @@ namespace RobotKarel {
 
 		
 		//maze = gcnew array<Item^, 2>(NUMROWS, NUMCOLS);
+
+		//initializes beepers.
 		beeper_array = gcnew array<Beeper^>(ARRAY_SIZE);
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			beeper_array[i] = gcnew Beeper();
@@ -123,19 +127,17 @@ namespace RobotKarel {
 	
 
 
-			//outside form
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		drawMaze();
-
-		//Draw buttons
-		beeper_array[0]->set_x(6);
-		beeper_array[0]->set_y(8);
 		
-		//beeper1->set_x(5);
-		//beeper1->set_y(5);
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		drawMap();
 
-		//MessageBox::Show(beeper_array[0]->get_x);
-		Rectangle beeperRect = Rectangle(beeper_array[0]->get_x() * CELLSIZE, beeper_array[0]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+		//Draw beepers
+		beeper_array[0]->set_x(6);
+		//beeper_array[0]->set_y(8);
+		
+		
+
+				Rectangle beeperRect = Rectangle(beeper_array[0]->get_x() * CELLSIZE, beeper_array[0]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 		//using brush for now until we use icon.
 		g->FillRectangle(grayBrush, beeperRect);
 		g->DrawRectangle(blackPen, beeperRect);
@@ -143,10 +145,10 @@ namespace RobotKarel {
 	}
 
 
+			 
 
 
-
-			 private: void drawMaze()
+			 private: void drawMap()
 			 {
 				 //Declare local variables;
 				 int row, col;
@@ -168,6 +170,30 @@ namespace RobotKarel {
 					 }
 				 }
 			 }
+
+
+
+
+					/*  void get_data(int piclocation[][2]) {
+
+						  std::ifstream in_stream;
+						  in_stream.open("picloc.txt");
+						  int count = 0;
+						  while (!in_stream.eof()) {					//stream coordinates from file into array
+							  in_stream >> piclocation[count][0];
+							  in_stream >> piclocation[count][1];
+							  count++;
+						  }
+					  }*/
+
+
+
+
+
+
+
+
+					  //outside form
 };
 	
 
