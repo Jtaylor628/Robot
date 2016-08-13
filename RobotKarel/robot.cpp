@@ -78,3 +78,17 @@ robot::robot()
 {
 	
 }
+
+System::Drawing::Bitmap^ robot::get_bmp()
+{
+	if (this->dir == 1)
+		return arrow_up;
+	if (this->dir == 2)
+		return arrow_right;
+	if (this->dir == 3)
+		return arrow_down;
+	if (this->dir == 4)
+		return arrow_left;
+
+	return arrow_up;
+}

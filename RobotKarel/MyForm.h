@@ -190,7 +190,7 @@ namespace RobotKarel {
 			g->FillRectangle(burlyBrush, beeperRect);
 			g->DrawRectangle(blackPen, beeperRect);
 
-			//g->DrawIcon(MyRobot->getIcon(), beeperRect);
+			
 		}
 
 
@@ -213,10 +213,10 @@ namespace RobotKarel {
 
 			Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
-			g->FillRectangle(randomBrush, robotRect);
-			g->DrawRectangle(blackPen, robotRect);
-			
-
+			//g->FillRectangle(randomBrush, robotRect);
+			//g->DrawRectangle(blackPen, robotRect);
+			//g->DrawIcon(myRobot->getIcon(), robotRect);
+			g->DrawImage(myRobot->get_bmp(), robotRect);
 			timer1->Start();
 
 		}
@@ -288,8 +288,10 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 	myRobot->move_robot(cell_array);// move left
 	Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 	//using brush for now until we use icon.
-	g->FillRectangle(randomBrush, robotRect);
+	//g->FillRectangle(randomBrush, robotRect);
 	g->DrawRectangle(blackPen, robotRect);
+	//g->DrawIcon(myRobot->getIcon(), robotRect);
+	g->DrawImage(myRobot->get_bmp(), robotRect);
 }
 
 
