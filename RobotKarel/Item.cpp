@@ -61,7 +61,7 @@ void Item::get_data(array<Item^>^ beeper_array, array<Item^, 2>^ cell_array)
 			in_stream >> y;
 			beeper_array[i]->y1 = y;
 			//if(str == "beeper")
-			//cell_array[x, y]->beeper = true;
+			cell_array[x, y]->beeper = true;
 
 		}
 		//count++;

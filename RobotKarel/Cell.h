@@ -4,6 +4,7 @@ ref class Cell :
 	public Item
 {
 public:
+	
 	int numrows;
 	int numbcol;
 	//bool beeper = false;

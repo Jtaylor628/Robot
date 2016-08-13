@@ -7,13 +7,14 @@ private:
 	//System::String^ file = gcnew System::String("Beeper.txt");
 	int x1 = 0;
 	int y1 = 0;
-	bool beeper = false;
-	bool wall = false;
+
+	
 	//static System::String ^ str = gcnew System::String("sdf");
 	//public:System::String^ file = gcnew System::String("Beeper.txt");
 	
 public:
-
+	bool wall = false;
+	bool beeper = false;
 	Item();
 	void set_x(int x);
 	void set_y(int y);

@@ -63,9 +63,11 @@ namespace RobotKarel {
 		Pen^ blackPen;
 		static const int NUMROWS = 16;
 		static const int NUMCOLS = 20;
-		static const int CELLSIZE = 25;
+		static const int CELLSIZE = 22;
 		static const int ARRAY_SIZE = 3;
+		int wall_array_size = 22;
 		int number_of_beepers = 0;
+		int beeper_array_size = 0;
 		array <Beeper^>^ beeper_array;
 		array <Wall^>^ wall_array;
 		array <Cell^,2>^ cell_array;
@@ -153,8 +155,8 @@ namespace RobotKarel {
 			}
 		}
 
-		wall_array = gcnew array<Wall^>(2);
-		for (int i = 0; i < 2; i++) {
+		wall_array = gcnew array<Wall^>(wall_array_size);
+		for (int i = 0; i < wall_array_size; i++) {
 			wall_array[i] = gcnew Wall();
 		}
 		//my_wall = gcnew Wall(cell_array);
@@ -196,7 +198,7 @@ namespace RobotKarel {
 
 
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < wall_array_size; i++) {
 			Rectangle wallRect = Rectangle(wall_array[i]->get_x() * CELLSIZE, wall_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
 			g->FillRectangle(grayBrush, wallRect);
@@ -283,7 +285,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 	g->FillRectangle(BlueBrush, OldRect);
 	g->DrawRectangle(blackPen, OldRect);
 	
-	myRobot->move_robot(1);// move left
+	myRobot->move_robot(cell_array);// move left
 	Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 	//using brush for now until we use icon.
 	g->FillRectangle(randomBrush, robotRect);
@@ -321,13 +323,17 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			 while (!in_stream.eof()) {
 				 in_stream >> str;
 				 in_stream >> number_ofThings;
+				 //array_size = number_ofThings;
 				 for (int i = 0; i < number_ofThings; i++) {
 					 in_stream >> x;
 					 beeper_array[i]->set_x(x);
 					 in_stream >> y;
 					 beeper_array[i]->set_y(y);
 					 //if(str == "beeper")
-					 //cell_array[x, y]->beeper = true;
+					 if(input == 1)
+					 cell_array[x, y]->beeper = true;
+					 if(input == 2)
+					 cell_array[x, y]->wall = true;
 
 				 }
 				 //count++;
