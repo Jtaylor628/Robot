@@ -2,8 +2,14 @@
 #include "Item.h";
 #include "Beeper.h";
 #include "robot.h";
-
+#include "Wall.h";
 #include "Cell.h";
+#include <string>;
+#include <fstream>;
+
+
+
+
 namespace RobotKarel {
 
 	using namespace System;
@@ -38,12 +44,14 @@ namespace RobotKarel {
 				delete components;
 			}
 		}
+	private: System::ComponentModel::IContainer^  components;
+	protected:
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 		///////*********************////////////+++++
 		//Drawing objects
@@ -51,6 +59,7 @@ namespace RobotKarel {
 		Brush^ grayBrush;
 		Brush^ BlueBrush;
 		Brush^ burlyBrush;
+		Brush^ randomBrush;
 		Pen^ blackPen;
 		static const int NUMROWS = 16;
 		static const int NUMCOLS = 20;
@@ -58,10 +67,13 @@ namespace RobotKarel {
 		static const int ARRAY_SIZE = 3;
 		int number_of_beepers = 0;
 		array <Beeper^>^ beeper_array;
+		array <Wall^>^ wall_array;
 		array <Cell^,2>^ cell_array;
 		robot^ myRobot;
-
+		//Wall^ my_wall;
+		String^ beepers;
 	private: System::Windows::Forms::Panel^  panel1;
+	private: System::Windows::Forms::Timer^  timer1;
 
 	private: System::Windows::Forms::Button^  button1;
 			 
@@ -73,8 +85,10 @@ namespace RobotKarel {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -93,6 +107,10 @@ namespace RobotKarel {
 			this->button1->Text = L"button1";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			// 
+			// timer1
+			// 
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
 			// MyForm
 			// 
@@ -113,11 +131,12 @@ namespace RobotKarel {
 		
 		
 		g = panel1->CreateGraphics();
+		randomBrush = gcnew System::Drawing::SolidBrush(Color::Pink);
 		grayBrush = gcnew System::Drawing::SolidBrush(Color::Gray);
 		BlueBrush = gcnew System::Drawing::SolidBrush(Color::Blue);
 		burlyBrush = gcnew System::Drawing::SolidBrush(Color::BurlyWood);
 		blackPen = gcnew System::Drawing::Pen(Color::Black);
-		
+		beepers = gcnew String("beepers");
 		
 		//maze = gcnew array<Item^, 2>(NUMROWS, NUMCOLS);
 
@@ -134,7 +153,11 @@ namespace RobotKarel {
 			}
 		}
 
-
+		wall_array = gcnew array<Wall^>(2);
+		for (int i = 0; i < 2; i++) {
+			wall_array[i] = gcnew Wall();
+		}
+		//my_wall = gcnew Wall(cell_array);
 
 	}
 
@@ -147,9 +170,11 @@ namespace RobotKarel {
 		
 		//myRobot = gcnew robot(2,1);
 
-		beeper_array[0]->get_data(beeper_array, cell_array);
-
+		//beeper_array[0]->get_data(beeper_array, cell_array);
+		//beeper_array[0]->get_data(wall_array, cell_array);
 		//draws  empty map
+		get_data(beeper_array, cell_array, 1);
+		get_data(wall_array, cell_array, 2);
 		drawMap();
 
 		//Draw beepers
@@ -157,7 +182,7 @@ namespace RobotKarel {
 		//beeper_array[0]->set_y(8);
 		
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < ARRAY_SIZE; i++) {
 			Rectangle beeperRect = Rectangle(beeper_array[i]->get_x() * CELLSIZE, beeper_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
 			g->FillRectangle(burlyBrush, beeperRect);
@@ -165,6 +190,38 @@ namespace RobotKarel {
 
 			//g->DrawIcon(MyRobot->getIcon(), beeperRect);
 		}
+
+
+
+
+
+
+		for (int i = 0; i < 2; i++) {
+			Rectangle wallRect = Rectangle(wall_array[i]->get_x() * CELLSIZE, wall_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+			//using brush for now until we use icon.
+			g->FillRectangle(grayBrush, wallRect);
+			g->DrawRectangle(blackPen, wallRect);
+
+			//g->DrawIcon(MyRobot->getIcon(), beeperRect);
+
+			//robot starting position.
+			myRobot = gcnew robot;
+			myRobot->set_x(3);
+			myRobot->set_y(3);
+
+			Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+			//using brush for now until we use icon.
+			g->FillRectangle(randomBrush, robotRect);
+			g->DrawRectangle(blackPen, robotRect);
+			
+
+			timer1->Start();
+
+		}
+		
+
+
+
 	}
 
 
@@ -192,6 +249,22 @@ namespace RobotKarel {
 						 g->DrawRectangle(blackPen, gridRect);
 					 }
 				 }
+
+
+
+				 
+
+
+
+
+
+
+
+
+
+
+
+
 			 }
 
 
@@ -204,6 +277,71 @@ namespace RobotKarel {
 
 
 					  //outside form
+private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+	Rectangle OldRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+	//using brush for now until we use icon.
+	g->FillRectangle(BlueBrush, OldRect);
+	g->DrawRectangle(blackPen, OldRect);
+	
+	myRobot->move_robot(1);// move left
+	Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+	//using brush for now until we use icon.
+	g->FillRectangle(randomBrush, robotRect);
+	g->DrawRectangle(blackPen, robotRect);
+}
+
+
+
+
+
+
+
+
+		 void get_data(array<Item^>^ beeper_array, array<Item^, 2>^ cell_array, int input)
+		 {
+			 
+			 //System::String^ managedString = "test";
+			 //msclr::interop::marshal_context context;
+			 //std::string file1 = context.marshal_as<std::string>(this->file);
+			 //file = msclr::interop::marshal_as<std::string>(this->file);
+			 std::string file = "stuff.txt";
+			 if (input == 2)
+				 file = "Wall.txt";
+			 int number_ofThings = 0;
+			 int x = 0;
+			 int y = 0;
+			 std::string str;
+			 std::ifstream in_stream;
+			 in_stream.open(file);
+			 if (in_stream.fail()) {
+				 MessageBox::Show("failed to open file");
+				 exit(1);
+			 }
+			 int count = 0;
+			 while (!in_stream.eof()) {
+				 in_stream >> str;
+				 in_stream >> number_ofThings;
+				 for (int i = 0; i < number_ofThings; i++) {
+					 in_stream >> x;
+					 beeper_array[i]->set_x(x);
+					 in_stream >> y;
+					 beeper_array[i]->set_y(y);
+					 //if(str == "beeper")
+					 //cell_array[x, y]->beeper = true;
+
+				 }
+				 //count++;
+			 }
+
+
+		 }
+
+
+
+
+
+
+
 };
 	
 

@@ -1,6 +1,6 @@
 #include "Beeper.h";
-#include <fstream>;
-#include <string>;
+//#include <fstream>;
+//#include <string>;
 #include "Cell.h";
 using namespace System::Windows::Forms;
 
@@ -10,35 +10,22 @@ Beeper::Beeper()
 
 }
 
-int Beeper::get_x()
-{
-	return x;
-}
 
-int Beeper::get_y()
-{
-	return y;
-}
 
-void Beeper::set_x(int x)
-{
-	this->x = x;
-}
 
-void Beeper::set_y(int y)
-{
-	this->y = y;
-}
 
-void Beeper::get_data(array<Beeper^>^ beeper_array, array<Cell^,2>^ cell_array)
+
+
+
+/*void Beeper::get_data(array<Beeper^>^ beeper_array, array<Cell^,2>^ cell_array)
 {
-	
+	std::string file = "stuff.txt";
 	int number_ofThings = 0;
 	int x = 0;
 	int y = 0;
 	std::string str;
 	std::ifstream in_stream;
-	in_stream.open("stuff.txt");
+	in_stream.open(file);
 	if (in_stream.fail()) {
 		MessageBox::Show("failed to open file");
 		exit(1);
@@ -59,4 +46,4 @@ void Beeper::get_data(array<Beeper^>^ beeper_array, array<Cell^,2>^ cell_array)
 	}
 
 
-}
+}*/

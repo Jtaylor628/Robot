@@ -1,13 +1,17 @@
 #pragma once
-ref class robot
+#include "Item.h";
+ref class robot : 
+	public Item
+
 {
 private:
-	int x;
-	int y;
-	static System::Drawing::Icon^ arrowUp = gcnew System::Drawing::Icon("arrowUp.ico");
+	
+	
+	//static System::Drawing::Icon^ arrowUp = gcnew System::Drawing::Icon("arrowUp.ico");
 public:
-	System::Drawing::Icon^ robot::getIcon();
-	robot(int z, int y);
+	//System::Drawing::Icon^ robot::getIcon();
+	void move_robot(int direction);
+	robot();
 
 
 };

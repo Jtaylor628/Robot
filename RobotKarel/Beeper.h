@@ -6,15 +6,12 @@ ref class Beeper :
 {
 
 private:
-	int x;
-	int y;
+	//System::String ^ file = gcnew System::String("Beeper.txt");
 public:
 	Beeper();
-	int get_x();
-	int get_y();
+	
 public: 
-	void set_x(int x);
-	void set_y(int y);
-	void get_data(array<Beeper^>^ beeper_array, array<Cell^,2>^ cell_array);
+	
+	//void get_data(array<Beeper^>^ beeper_array, array<Cell^,2>^ cell_array);
 };
 

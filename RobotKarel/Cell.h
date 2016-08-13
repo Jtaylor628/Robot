@@ -6,8 +6,8 @@ ref class Cell :
 public:
 	int numrows;
 	int numbcol;
-	bool beeper = false;
-	bool wall = false;
+	//bool beeper = false;
+	//bool wall = false;
 	//array <Item^, 2>^ maze;
 
 	Cell();
