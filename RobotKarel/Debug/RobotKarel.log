@@ -1,4 +1,11 @@
-﻿  robot.cpp
+﻿  MyForm.cpp
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\desktop\gitplace\robot\robotkarel\robot.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(5): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(6): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   RobotKarel.vcxproj -> C:\Users\Dell\Desktop\gitplace\robot\Debug\RobotKarel.exe
   RobotKarel.vcxproj -> C:\Users\Dell\Desktop\gitplace\robot\Debug\RobotKarel.pdb (Full PDB)

@@ -61,11 +61,11 @@ namespace RobotKarel {
 		Brush^ burlyBrush;
 		Brush^ randomBrush;
 		Pen^ blackPen;
-		static const int NUMROWS = 16;
-		static const int NUMCOLS = 20;
+		static const int NUMROWS = 12;
+		static const int NUMCOLS = 12;
 		static const int CELLSIZE = 22;
-		static const int ARRAY_SIZE = 3;
-		int wall_array_size = 22;
+		static const int ARRAY_SIZE = 4;
+		int wall_array_size = 9;
 		int number_of_beepers = 0;
 		int beeper_array_size = 0;
 		array <Beeper^>^ beeper_array;
@@ -76,6 +76,7 @@ namespace RobotKarel {
 		String^ beepers;
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Timer^  timer1;
+
 
 	private: System::Windows::Forms::Button^  button1;
 			 
@@ -97,16 +98,16 @@ namespace RobotKarel {
 			// 
 			this->panel1->Location = System::Drawing::Point(0, 0);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(668, 522);
+			this->panel1->Size = System::Drawing::Size(286, 264);
 			this->panel1->TabIndex = 0;
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(674, 35);
+			this->button1->Location = System::Drawing::Point(292, 12);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->Size = System::Drawing::Size(64, 37);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
+			this->button1->Text = L"Push";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -118,7 +119,7 @@ namespace RobotKarel {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(755, 534);
+			this->ClientSize = System::Drawing::Size(366, 266);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->panel1);
 			this->Name = L"MyForm";
@@ -148,12 +149,19 @@ namespace RobotKarel {
 			beeper_array[i] = gcnew Beeper();
 		}
 
+
+
 		cell_array = gcnew array<Cell^, 2>(NUMROWS, NUMCOLS);
 		for (int row = 0; row < NUMROWS; row++) {
 			for (int col = 0; col < NUMCOLS; col++) {
 				cell_array[row,col] = gcnew Cell;
 			}
 		}
+		/*for (int i = 0; i < 10; i++) {
+			cell_array[i, 0]->wall = true;
+			cell_array[i, 10]->wall = true;
+		}*/
+
 
 		wall_array = gcnew array<Wall^>(wall_array_size);
 		for (int i = 0; i < wall_array_size; i++) {
@@ -168,13 +176,9 @@ namespace RobotKarel {
 
 		
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		//get_data(beeper_array);
 		
-		//myRobot = gcnew robot(2,1);
-
-		//beeper_array[0]->get_data(beeper_array, cell_array);
-		//beeper_array[0]->get_data(wall_array, cell_array);
-		//draws  empty map
+		
+		
 		get_data(beeper_array, cell_array, 1);
 		get_data(wall_array, cell_array, 2);
 		drawMap();
@@ -187,9 +191,9 @@ namespace RobotKarel {
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			Rectangle beeperRect = Rectangle(beeper_array[i]->get_x() * CELLSIZE, beeper_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
-			g->FillRectangle(burlyBrush, beeperRect);
-			g->DrawRectangle(blackPen, beeperRect);
-
+			//g->FillRectangle(burlyBrush, beeperRect);
+			//g->DrawRectangle(blackPen, beeperRect);
+			g->DrawImage(beeper_array[i]->get_bmp(), beeperRect);
 			
 		}
 
@@ -203,6 +207,7 @@ namespace RobotKarel {
 			//using brush for now until we use icon.
 			g->FillRectangle(grayBrush, wallRect);
 			g->DrawRectangle(blackPen, wallRect);
+
 
 			//g->DrawIcon(MyRobot->getIcon(), beeperRect);
 
@@ -218,6 +223,7 @@ namespace RobotKarel {
 			//g->DrawIcon(myRobot->getIcon(), robotRect);
 			g->DrawImage(myRobot->get_bmp(), robotRect);
 			timer1->Start();
+			
 
 		}
 		
@@ -244,8 +250,8 @@ namespace RobotKarel {
 				 {
 					 for (col = 0; col < NUMCOLS; col++)
 					 {
-						 x = col * CELLSIZE;
-						 y = row * CELLSIZE;
+						 y = col * CELLSIZE;
+						 x = row * CELLSIZE;
 						 Rectangle gridRect = Rectangle(x, y, CELLSIZE - 1, CELLSIZE - 1);
 						 g->FillRectangle(BlueBrush, gridRect);
 						 g->DrawRectangle(blackPen, gridRect);
@@ -350,6 +356,9 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 
 
 
+private: System::Void timer2_Tick(System::Object^  sender, System::EventArgs^  e) {
+	beeper_array[0]->beeperOn = !beeper_array[0]->beeperOn;
+}
 };
 	
 

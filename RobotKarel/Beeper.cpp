@@ -10,6 +10,14 @@ Beeper::Beeper()
 
 }
 
+System::Drawing::Bitmap ^ Beeper::get_bmp()
+{
+	
+	return beeperBmp1;
+	
+	// TODO: insert return statement here
+}
+
 
 
 
