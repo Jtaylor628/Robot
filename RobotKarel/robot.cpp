@@ -21,7 +21,6 @@ void robot::move_robot(array<Item^, 2>^ cell_array)
 		
 	}
 	
-	//int dir = random->Next(1,4);
 
 	
 	//If at Top, choose new direction

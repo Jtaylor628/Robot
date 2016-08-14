@@ -61,11 +61,11 @@ namespace RobotKarel {
 		Brush^ burlyBrush;
 		Brush^ randomBrush;
 		Pen^ blackPen;
-		static const int NUMROWS = 12;
+		static const int NUMROWS = 12;	
 		static const int NUMCOLS = 12;
 		static const int CELLSIZE = 22;
-		static const int ARRAY_SIZE = 4;
-		int wall_array_size = 9;
+		static const int ARRAY_SIZE = 4;	//beeper array size.
+		int wall_array_size = 9;		//Must change if txt file is changed
 		int number_of_beepers = 0;
 		int beeper_array_size = 0;
 		array <Beeper^>^ beeper_array;
@@ -205,24 +205,21 @@ namespace RobotKarel {
 		}
 
 
-
+		//initializes cell array.
 		cell_array = gcnew array<Cell^, 2>(NUMROWS, NUMCOLS);
 		for (int row = 0; row < NUMROWS; row++) {
 			for (int col = 0; col < NUMCOLS; col++) {
 				cell_array[row,col] = gcnew Cell;
 			}
 		}
-		/*for (int i = 0; i < 10; i++) {
-			cell_array[i, 0]->wall = true;
-			cell_array[i, 10]->wall = true;
-		}*/
+		
 
-
+		//initializes wall objects.
 		wall_array = gcnew array<Wall^>(wall_array_size);
 		for (int i = 0; i < wall_array_size; i++) {
 			wall_array[i] = gcnew Wall();
 		}
-		//my_wall = gcnew Wall(cell_array);
+		
 
 	}
 
@@ -235,15 +232,13 @@ namespace RobotKarel {
 		button3->Visible = true;
 		//textBox1->Text = myRobot->Beeper_Bag.ToString();
 		
-		get_data(beeper_array, cell_array, 1);
+		get_data(beeper_array, cell_array, 1); //gets input from file
 		get_data(wall_array, cell_array, 2);
-		drawMap();
+		drawMap();		//draws world.
 
-		//Draw beepers
-		//beeper_array[0]->set_x(6);
-		//beeper_array[0]->set_y(8);
+	
 		
-		
+		//Draws beepers.
 		for (int i = 0; i < ARRAY_SIZE; i++) {
 			Rectangle beeperRect = Rectangle(beeper_array[i]->get_x() * CELLSIZE, beeper_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
@@ -257,7 +252,7 @@ namespace RobotKarel {
 
 
 
-
+		//Draws walls
 		for (int i = 0; i < wall_array_size; i++) {
 			Rectangle wallRect = Rectangle(wall_array[i]->get_x() * CELLSIZE, wall_array[i]->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 			//using brush for now until we use icon.
@@ -272,11 +267,8 @@ namespace RobotKarel {
 			myRobot->set_x(3);
 			myRobot->set_y(3);
 
+			//draws robot starting location
 			Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
-			//using brush for now until we use icon.
-			//g->FillRectangle(randomBrush, robotRect);
-			//g->DrawRectangle(blackPen, robotRect);
-			//g->DrawIcon(myRobot->getIcon(), robotRect);
 			g->DrawImage(myRobot->get_bmp(), robotRect);
 			timer1->Start();
 			
@@ -292,7 +284,7 @@ namespace RobotKarel {
 			 
 
 
-			 private: void drawMap()
+			 private: void drawMap()	//draws world.
 			 {
 				 //Declare local variables;
 				 int row, col;
@@ -343,19 +335,18 @@ namespace RobotKarel {
 					  //outside form
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
 	
-	if (!dropBeeper) {
+	if (!dropBeeper) {	//fills back in old location of robot. 
 		Rectangle OldRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 		//using brush for now until we use icon.
 		g->FillRectangle(BlueBrush, OldRect);
 		g->DrawRectangle(blackPen, OldRect);
 		dropBeeper = false;
 	}dropBeeper = false;
-	myRobot->move_robot(cell_array);// move left
+	myRobot->move_robot(cell_array);
+
+	//Draws new location of robot.
 	Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
-	//using brush for now until we use icon.
-	//g->FillRectangle(randomBrush, robotRect);
 	g->DrawRectangle(blackPen, robotRect);
-	//g->DrawIcon(myRobot->getIcon(), robotRect);
 	g->DrawImage(myRobot->get_bmp(), robotRect);
 
 	
@@ -368,7 +359,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 
 
 
-
+		 //Gets walls location, beeper location from file.
 
 		 void get_data(array<Item^>^ beeper_array, array<Item^, 2>^ cell_array, int input)
 		 {
@@ -419,14 +410,12 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 
 
 
-private: System::Void timer2_Tick(System::Object^  sender, System::EventArgs^  e) {
-	beeper_array[0]->beeperOn = !beeper_array[0]->beeperOn;
-}
+		 //drops beeper.
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (myRobot->Beeper_Bag > 0) {
 		dropBeeper = true;
 		Rectangle beeperRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
-
+		//Draws new beeper
 		g->DrawImage(beeper_array[0]->get_bmp(), beeperRect);
 		cell_array[myRobot->get_x(), myRobot->get_y()]->beeper = true;
 		myRobot->Beeper_Bag -= 1;

@@ -20,7 +20,7 @@ public:
 	void set_y(int y);
 	int get_x();
 	int get_y();
-	void get_data(array<Item^>^ beeper_array, array<Item^, 2>^ cell_array);
+	
 	
 };
 
