@@ -1,11 +1,4 @@
-﻿  Beeper.cpp
-Beeper.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-Beeper.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Cell.cpp
-  Item.cpp
-Item.cpp(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-Item.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  MyForm.cpp
+﻿  MyForm.cpp
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
@@ -14,12 +7,5 @@ c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(5): warning C4067: unex
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(6): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(7): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 c:\users\dell\desktop\gitplace\robot\robotkarel\MyForm.h(8): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Wall.cpp
-Wall.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-Wall.cpp(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-Wall.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  robot.cpp
-c:\users\dell\desktop\gitplace\robot\robotkarel\robot.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
   RobotKarel.vcxproj -> C:\Users\Dell\Desktop\gitplace\robot\Debug\RobotKarel.exe
   RobotKarel.vcxproj -> C:\Users\Dell\Desktop\gitplace\robot\Debug\RobotKarel.pdb (Full PDB)
