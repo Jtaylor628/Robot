@@ -74,8 +74,14 @@ namespace RobotKarel {
 		robot^ myRobot;
 		//Wall^ my_wall;
 		String^ beepers;
+		bool dropBeeper = false;
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Timer^  timer1;
+
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button3;
+	private: System::Windows::Forms::Label^  label2;
 
 
 	private: System::Windows::Forms::Button^  button1;
@@ -92,6 +98,10 @@ namespace RobotKarel {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -103,9 +113,9 @@ namespace RobotKarel {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(292, 12);
+			this->button1->Location = System::Drawing::Point(295, 12);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(64, 37);
+			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Push";
 			this->button1->UseVisualStyleBackColor = true;
@@ -115,24 +125,69 @@ namespace RobotKarel {
 			// 
 			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(289, 244);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(69, 13);
+			this->label1->TabIndex = 2;
+			this->label1->Text = L"Beeper Bag: ";
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(295, 41);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 3;
+			this->button2->Text = L"Drop beeper";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Visible = false;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(295, 70);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 23);
+			this->button3->TabIndex = 4;
+			this->button3->Text = L"Add beepers";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Visible = false;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(292, 107);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(0, 13);
+			this->label2->TabIndex = 5;
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(366, 266);
+			this->ClientSize = System::Drawing::Size(402, 266);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->panel1);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 		
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 		
-		
+	
 		g = panel1->CreateGraphics();
 		randomBrush = gcnew System::Drawing::SolidBrush(Color::Pink);
 		grayBrush = gcnew System::Drawing::SolidBrush(Color::Gray);
@@ -176,8 +231,9 @@ namespace RobotKarel {
 
 		
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		
-		
+		button2->Visible = true;
+		button3->Visible = true;
+		//textBox1->Text = myRobot->Beeper_Bag.ToString();
 		
 		get_data(beeper_array, cell_array, 1);
 		get_data(wall_array, cell_array, 2);
@@ -286,11 +342,14 @@ namespace RobotKarel {
 
 					  //outside form
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-	Rectangle OldRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
-	//using brush for now until we use icon.
-	g->FillRectangle(BlueBrush, OldRect);
-	g->DrawRectangle(blackPen, OldRect);
 	
+	if (!dropBeeper) {
+		Rectangle OldRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+		//using brush for now until we use icon.
+		g->FillRectangle(BlueBrush, OldRect);
+		g->DrawRectangle(blackPen, OldRect);
+		dropBeeper = false;
+	}dropBeeper = false;
 	myRobot->move_robot(cell_array);// move left
 	Rectangle robotRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
 	//using brush for now until we use icon.
@@ -298,6 +357,10 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 	g->DrawRectangle(blackPen, robotRect);
 	//g->DrawIcon(myRobot->getIcon(), robotRect);
 	g->DrawImage(myRobot->get_bmp(), robotRect);
+
+	
+	label1->Text = "Beeper Bag: " + myRobot->Beeper_Bag.ToString();
+	
 }
 
 
@@ -358,6 +421,22 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 
 private: System::Void timer2_Tick(System::Object^  sender, System::EventArgs^  e) {
 	beeper_array[0]->beeperOn = !beeper_array[0]->beeperOn;
+}
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (myRobot->Beeper_Bag > 0) {
+		dropBeeper = true;
+		Rectangle beeperRect = Rectangle(myRobot->get_x() * CELLSIZE, myRobot->get_y() * CELLSIZE, CELLSIZE - 1, CELLSIZE - 1);
+
+		g->DrawImage(beeper_array[0]->get_bmp(), beeperRect);
+		cell_array[myRobot->get_x(), myRobot->get_y()]->beeper = true;
+		myRobot->Beeper_Bag -= 1;
+	}
+	else MessageBox::Show("You have no more beepers!");
+}
+private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+	myRobot->Beeper_Bag += 100;
+	label2->Text = "Buy full version for\n unlimited beepers!";
+	button3->Enabled = false;
 }
 };
 	

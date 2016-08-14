@@ -60,14 +60,17 @@ void robot::move_robot(array<Item^, 2>^ cell_array)
 			this->set_y(get_y() - 1);	//check for wall before going direction.
 		}
 			   else dir = random->Next(1, 4);
+
 			break;
 		case 2:if (last_move == 4) {
 			dir = 3;
 		}
 			else if (!cell_array[get_x() + 1, get_y()]->wall) {
 			this->set_x(get_x() + 1);
+
 		}
 			   else dir = random->Next(1, 4);
+			   
 			   //this->set_x(get_x() + 1);
 			break;
 		case 3:if (last_move == 1) {
@@ -75,8 +78,10 @@ void robot::move_robot(array<Item^, 2>^ cell_array)
 		}
 			else if (!cell_array[get_x(), get_y() + 1]->wall) {
 			this->set_y(get_y() + 1);
+				
 		}
 			   else dir = random->Next(1, 4);//this->set_y(get_y() + 1);
+			   
 			break;
 		case 4:if (last_move == 2) {
 			dir = 1;
@@ -85,11 +90,16 @@ void robot::move_robot(array<Item^, 2>^ cell_array)
 			this->set_x(get_x() - 1);
 		}
 			   else dir = random->Next(1, 4);//this->set_x(get_x() - 1);
+			   
 			break;
 		default:
 			break;
 		}
-		
+		if (cell_array[this->get_x(), this->get_y()]->beeper == true) {
+			this->Beeper_Bag += 1;
+			cell_array[this->get_x(), this->get_y()]->beeper = false;
+			
+		}
 }
 
 robot::robot()

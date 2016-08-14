@@ -16,7 +16,7 @@ private:
 	//static System::Drawing::Icon^ arrowUp = gcnew System::Drawing::Icon("icon2.ico");
 public:
 	//System::Drawing::Icon^ robot::getIcon();
-	
+	int Beeper_Bag = 0;
 	void move_robot(array<Item^, 2>^ cell_array);
 	robot();
 	System::Drawing::Bitmap^ get_bmp();
