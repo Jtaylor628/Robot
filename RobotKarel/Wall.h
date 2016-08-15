@@ -12,8 +12,6 @@ private:
 	int y1 = 0;
 public:
 	Wall();
-	//Wall(array<Cell^, 2>^ cell_array);
-	
-	
+
 };
 

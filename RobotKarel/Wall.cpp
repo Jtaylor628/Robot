@@ -2,7 +2,8 @@
 #include <fstream>;
 #include <string>;
 using namespace System::Windows::Forms;
-Wall::Wall() {
+Wall::Wall()
+{
 }
 
 

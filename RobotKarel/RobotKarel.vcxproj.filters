@@ -62,4 +62,12 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="stuff.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Wall.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

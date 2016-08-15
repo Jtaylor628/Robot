@@ -13,9 +13,9 @@ private:
 	System::Drawing::Bitmap^ arrow_right = gcnew System::Drawing::Bitmap(L"arrowRight.bmp");
 	System::Drawing::Bitmap^ arrow_down = gcnew System::Drawing::Bitmap(L"arrowDown.bmp");
 	System::Drawing::Bitmap^ arrow_left = gcnew System::Drawing::Bitmap(L"arrowLeft.bmp");
-	//static System::Drawing::Icon^ arrowUp = gcnew System::Drawing::Icon("icon2.ico");
+
 public:
-	//System::Drawing::Icon^ robot::getIcon();
+
 	int Beeper_Bag = 0;
 	void move_robot(array<Item^, 2>^ cell_array);
 	robot();
