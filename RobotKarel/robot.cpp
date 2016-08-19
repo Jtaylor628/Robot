@@ -101,6 +101,38 @@ void robot::move_robot(array<Item^, 2>^ cell_array)
 		}
 }
 
+void robot::player_move(array<Item^, 2>^ cell_array, int move)
+{
+	if (move == 1 && get_y() == 0) {
+		//if at the top, do nothing
+	}
+	else if (move == 1 && (!cell_array[get_x(), get_y() - 1]->wall)) {
+		this->set_y(get_y() - 1);
+		this->dir = 1;
+	}
+	if (move == 2  && get_x() == 11) {
+		//if at the top, do nothing
+	}
+	else if (move == 2 && (!cell_array[get_x() + 1, get_y()]->wall)) {
+		this->set_x(get_x() + 1);
+		this->dir = 2;
+	}
+	if (move == 3 && get_y() == 11) {
+		//if at the top, do nothing
+	}
+	else if (move == 3 && (!cell_array[get_x() , get_y() + 1]->wall)) {
+		this->set_y(get_y() + 1);
+		this->dir = 3;
+	}
+	if (move == 4 && get_x() == 0) {
+		//if at the top, do nothing
+	}
+	else if (move == 4 && (!cell_array[get_x() - 1, get_y()]->wall)) {
+		this->set_x(get_x() - 1);
+		this->dir = 4;
+	}
+}
+
 robot::robot()
 {
 	
